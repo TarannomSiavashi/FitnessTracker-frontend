@@ -1,0 +1,12 @@
+.toolbar{
+    height: 80px;
+    width: 100%;
+    background-color: #161A1D;
+    display: flex;
+    justify-content: space-between;
+}
+
+h3{
+    color: #D3D3D3;
+    height: 60px;
+}
