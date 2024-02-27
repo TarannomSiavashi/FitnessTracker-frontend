@@ -15,7 +15,8 @@ function LoginPage() {
         username : username,
         password : password,
     };
-    post('/login', JSON.stringify(loginData));
+    // post('/login', JSON.stringify(loginData));
+    post('/login', loginData);
   } 
 
   return (
@@ -23,9 +24,9 @@ function LoginPage() {
       <h1 id="login_header">Login</h1>
       <div id="form">
         <div className="partition">
-          <label id="label">Username</label>
+          <label id="labelLogin">Username</label>
           <input
-            id="name"
+            id="username"
             type="text"
             // placeholder="Username"
             value={username}
@@ -34,7 +35,7 @@ function LoginPage() {
         </div>
 
         <div className="partition">
-          <label id="labels" color="red">Password</label>
+          <label id="labelLogin" color="red">Password</label>
           <input
             id="pass"
             type="password"

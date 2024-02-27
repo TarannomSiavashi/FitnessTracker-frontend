@@ -1,0 +1,60 @@
+#editDialog {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #0b090a;
+  border-radius: 10px;
+}
+
+#editInfo{
+    width: 400px;
+    display: flex;
+    background-color: #0b090a;
+    flex-direction: row;
+    justify-content: space-around;
+    align-content: space-around;
+    align-items: center;
+}
+
+.buttons{
+    width: 266px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button{
+    width: 110px;
+    background-color: #A4161A;
+    color: #D3D3D3 ;
+}
+
+#name{
+    width: 190px;
+    height: 30px;
+    background-color: #F5F3F4;
+    border-radius: 10px;
+}
+
+#weight{
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    background-color: #F5F3F4;
+
+}
+
+#height{
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    background-color: #F5F3F4;
+}
+
+#date{
+    border-radius: 5px;
+    height: 30px;
+    background-color: #F5F3F4;
+}
