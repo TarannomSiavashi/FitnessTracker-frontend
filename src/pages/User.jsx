@@ -1,16 +1,34 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import { Link, useParams } from "react-router-dom";
 import './page-styles/User.css'
 import EditDialog from '../components/user-components/editDialog'
+import { get } from '../utils/httpClient'
+
 
 export default function User() {
-  const user = {
-    id: 1,
-    name: "Tarannom",
-    weight: 43,
-    height: 164,
-    birthdate: "2002-07-23",
-  };
+  const { userId } = useParams();
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const fetcheduser = await get(`/user/${userId}`);
+        console.log("fetched usr:", fetcheduser[0]);
+        const userObj = fetcheduser[0];
+        setUser(userObj);
+        console.log("user usr:", user);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }, [userId]);
+  // const user = {
+  //   id: 1,
+  //   name: "Tarannom",
+  //   weight: 43,
+  //   height: 164,
+  //   birthdate: "2002-07-23",
+  // };
 
   const [showEditDialog, setShowEditDialog] = useState(false);
 
@@ -50,7 +68,7 @@ export default function User() {
 
         <div id='info_button'>
         <button id='edit' onClick={openEditDialog}>Edit</button>
-        <Link to="/Home"><button id='back'>Back</button></Link>
+        <Link to={`/Home/${userId}`}><button id='back'>Back</button></Link>
         </div>
 
       </div>

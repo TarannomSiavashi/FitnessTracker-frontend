@@ -1,0 +1,41 @@
+#addPr {
+    display: flex;
+    background-color: #161a1d;
+    height: 345px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+#header3 {
+  color: white;
+}
+
+.pr_header5{
+    color: #F5F3F4;
+}
+
+#add_pr{
+    display: flex;
+    width: 300px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#prUnit{
+    height: 30px;
+    border-radius: 5px;
+}
+
+#prTitle{
+    height: 30px;
+    border-radius: 5px;
+}
+
+.pr_button{
+    height: 40px;
+    width: 100px;
+    background-color: #A4161A;
+}

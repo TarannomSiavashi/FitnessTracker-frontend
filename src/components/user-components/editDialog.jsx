@@ -22,10 +22,10 @@ export default function EditDialog({ user }) {
         height: height,
         birthdate: birthdate
     };
+    console.log("edit:", updatedUser);
 
     try {
       const response = await put(`/edit/${user.id}`, updatedUser);
-      console.log("Updated user:", response);
       handleClose();
     } catch (error) {
       console.error("Error updating user:", error);

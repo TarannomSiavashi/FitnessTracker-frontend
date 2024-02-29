@@ -18,11 +18,11 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/Home",
+    path: "/Home/:userId",
     element: <Home />,
   },
   {
-    path: "/User",
+    path: "/User/:userId",
     element: <User />,
   },
   {

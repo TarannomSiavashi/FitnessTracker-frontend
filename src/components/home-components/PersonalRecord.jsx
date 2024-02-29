@@ -19,7 +19,7 @@ function PersonalRecord({ userId, prId}) {
 
   return (
     <div className="recordsContainer">
-      <LineChart records={records} />
+      {/* <LineChart records={records} /> */}
       <table>
         <thead>
           <tr>

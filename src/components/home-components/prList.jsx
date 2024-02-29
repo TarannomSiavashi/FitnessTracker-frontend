@@ -2,12 +2,24 @@ import { useEffect, useState } from "react";
 import { get } from "../../utils/httpClient";
 import Record from "../home-components/record";
 import { Link } from "react-router-dom";
-
+import AddPr from '../home-components/addPr'
 import "../home-components/styles/prlist.css";
 
 function prList({ userId }) {
   const [personalRecords, setPersonalRecords] = useState([]);
   const [records, setRecords] = useState([]);
+
+
+  const [showAddDialog, setShowAddDialog] = useState(false);
+
+  const openAddDialog = () => {
+    setShowAddDialog(true);
+  };
+
+  const closeAddDialog = () => {
+    setShowAddDialog(false);
+  };
+
 
   useEffect(() => {
     const fetchPersonalRecords = async () => {
@@ -39,8 +51,11 @@ function prList({ userId }) {
     fetchRecords();
   }, [userId, personalRecords]);
 
+  console.log(records);
+
   return (
     <div className="prList">
+      <h3 id="listTitle">Latest Update on Personal Records</h3>
       {records.map((record, index) => (
         <div key={index}>
           <Link to={`/Records/${personalRecords[index].title}/${userId}/${record.prid}`}>
@@ -48,6 +63,9 @@ function prList({ userId }) {
           </Link>
         </div>
       ))}
+      <button className="addCategory" onClick={openAddDialog}>Add New Personal Record Category</button>
+
+      {showAddDialog && <AddPr userId={userId} onClose={closeAddDialog} />}
     </div>
   );
 }

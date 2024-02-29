@@ -151,15 +151,35 @@ import { Line } from "react-chartjs-2";
 
 const LineChart = ({ records }) => {
   const chartRef = useRef(null);
+  let chartInstance = null;
 
-  useEffect(() => {
-    // Destroy the previous chart when the component is unmounted
+//   useEffect(() => {
+//     // Destroy the previous chart when the component is unmounted
+//     return () => {
+//       if (chartRef.current) {
+//         chartRef.current.destroy();
+//       }
+//     };
+//   }, []);
+
+useEffect(() => {
+    // Create a new chart instance when the component mounts
+    if (chartRef.current) {
+      const ctx = chartRef.current.getContext("2d");
+      chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: getData(records),
+        options: getOptions(),
+      });
+    }
+
+    // Return a cleanup function to destroy the chart when the component unmounts
     return () => {
-      if (chartRef.current) {
-        chartRef.current.destroy();
+      if (chartInstance) {
+        chartInstance.destroy();
       }
     };
-  }, []);
+  }, [records]);
 
   // Extract dates and metrics from records array
   const dates = records.map((record) => new Date(record.prdate)); // Convert dates to JavaScript Date objects
@@ -183,11 +203,11 @@ const LineChart = ({ records }) => {
   const options = {
     scales: {
       x: {
-        type: 'time', // Set the x-axis scale type to 'time'
-        time: { // Configure time options
-          unit: 'day', // Display dates by day
+        type: 'time',
+        time: {
+          unit: 'day',
           displayFormats: {
-            day: 'MMM DD', // Format for displaying dates
+            day: 'YYYY MM DD', // Format for displaying dates as yyyy mm dd
           },
         },
         title: {
@@ -196,7 +216,7 @@ const LineChart = ({ records }) => {
         },
       },
       y: {
-        type: 'linear', // Set the y-axis scale type to 'linear' for numeric values
+        type: 'linear',
         title: {
           display: true,
           text: "Metric (kg)",
@@ -204,7 +224,7 @@ const LineChart = ({ records }) => {
       },
     },
   };
-
+  
   return <Line ref={chartRef} data={data} options={options} />;
 };
 
