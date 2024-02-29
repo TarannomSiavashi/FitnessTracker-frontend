@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Home from './pages/Home.jsx'
 import Login from './pages/Login.jsx'
 import User from './pages/User.jsx'
+import PersonalRecord from './pages/PersonalRecord.jsx'
 // import App from './App.jsx'
 import {
   createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/User",
     element: <User />,
+  },
+  {
+    path: "/Records/:title/:userId/:prId",
+    element: <PersonalRecord/>,
   },
 ]);
 

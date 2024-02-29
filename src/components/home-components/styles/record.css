@@ -1,0 +1,10 @@
+.record_Container{
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    height: 40px;
+}
+
+#text{
+    color: black;
+}

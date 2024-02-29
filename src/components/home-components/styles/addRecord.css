@@ -1,0 +1,51 @@
+.addContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #660708;
+  width: 500px;
+  height: 500px;
+  border-radius: 10px;
+}
+
+.recordAddButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.newRecPart {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#recordDate {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+#recordMetric {
+  width: 55px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+#recordNote {
+  width: 158px;
+  height: 30px;
+  border-radius: 5px;
+}
+
+#back_record {
+  background-color: #161a1d;
+  color: white;
+}
+
+#add_record {
+  background-color: #161a1d;
+  color: white;
+}
