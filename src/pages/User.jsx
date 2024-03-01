@@ -22,13 +22,20 @@ export default function User() {
     };
     fetchUser();
   }, [userId]);
-  // const user = {
-  //   id: 1,
-  //   name: "Tarannom",
-  //   weight: 43,
-  //   height: 164,
-  //   birthdate: "2002-07-23",
-  // };
+
+  const loadUser = async () => {
+    try {
+      const fetcheduser = await get(`/user/${userId}`);
+      console.log("fetched usr:", fetcheduser[0]);
+      const userObj = fetcheduser[0];
+      setUser(userObj);
+      console.log("user usr:", user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+
 
   const [showEditDialog, setShowEditDialog] = useState(false);
 
@@ -38,6 +45,7 @@ export default function User() {
 
   const closeEditDialog = () => {
     setShowEditDialog(false);
+    loadUser();
   };
 
 

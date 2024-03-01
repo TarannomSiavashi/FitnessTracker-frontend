@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import '../user-components/editDialog.css'
 import { put } from '../../utils/httpClient'
 
-export default function EditDialog({ user }) {
+export default function EditDialog({ user , onClose}) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    setIsOpen(false);
+    // setIsOpen(false);
+    onClose();
   };
 
   const handleConfirm = async () => {
@@ -33,7 +34,7 @@ export default function EditDialog({ user }) {
     }
   };
 
-
+  const birth = new Date(user.birthdate);
   return (
     <>
       {isOpen && (
@@ -57,7 +58,7 @@ export default function EditDialog({ user }) {
 
             <div id="editInfo">
               <h5>Date of Birth</h5>
-              <input type="date" id="date" defaultValue={user.birthdate} />
+              <input type="date" id="date" defaultValue={birth} />
             </div>
             <div className="buttons">
               <button className="button" onClick={handleConfirm}>Confirm</button>

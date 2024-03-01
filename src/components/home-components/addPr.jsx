@@ -3,12 +3,15 @@ import "../user-components/editDialog.css";
 import { post } from "../../utils/httpClient";
 import "./styles/addPr.css";
 
-export default function AddPr({ userId }) {
+export default function AddPr({ userId, prId }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(false);
   };
+
+
+  let newCat;
 
   const handleConfirm = async () => {
     const title = document.getElementById("prTitle").value;
@@ -22,32 +25,35 @@ export default function AddPr({ userId }) {
 
     try {
       const response = await post(`/newCategory`, newCategory);
-      console.log("Category added:", response);
-    //   handleClose();
+      // console.log("Category added:", response);
+      newCat = response;
+      // console.log("New Cat:", newCat);
+      //   handleClose();
     } catch (error) {
       console.error("Error adding category:", error);
       // Handle error appropriately
     }
 
-    // const date = document.getElementById("recDate").value;
-    // const metric = document.getElementById("recMetric").value;
-    // const note = document.getElementById("recNote").value;
+    const date = document.getElementById("recDate").value;
+    const metric = document.getElementById("recMetric").value;
+    const note = document.getElementById("recNote").value;
 
-    // const newRec = {
-    //     prid: 1,
-    //     prdate: date,
-    //     metric: metric,
-    //     note: note
-    // }
+    const newRec = {
+        prid: newCat.prid,
+        prdate: date,
+        metric: metric,
+        note: note
+    }
 
-    // try {
-    //     const response = await post(`/newRecord`, newRec);
-    //     console.log("Record added:", response);
-    //     handleClose();
-    //   } catch (error) {
-    //     console.error("Error adding record:", error);
-    //     // Handle error appropriately
-    //   }
+    // console.log("newRec:", newRec);
+    try {
+        const response = await post(`/newRecord`, newRec);
+        // console.log("Record added:", response);
+        handleClose();
+      } catch (error) {
+        console.error("Error adding record:", error);
+        // Handle error appropriately
+      }
   };
 
   return (
@@ -68,20 +74,22 @@ export default function AddPr({ userId }) {
               <input type="text" id="prUnit" />
             </div>
 
-            <h4>Add the First Record</h4>
-            <div id="add_recDate">
-              <label>Record Date:</label>
-              <input type="date" id="recDate" />
-            </div>
+            <div className="first_rec">
+              <h4 className="pr_header4">Add the First Record</h4>
+              <div id="add_recDate">
+                <label>Record Date:</label>
+                <input type="date" id="recDate" />
+              </div>
 
-            <div id="add_recMetric">
-              <label>Record Metric:</label>
-              <input type="number" id="recMetric" />
-            </div>
+              <div id="add_recMetric">
+                <label>Record Metric:</label>
+                <input type="number" id="recMetric" />
+              </div>
 
-            <div id="add_recNote">
-              <label>Note:</label>
-              <input type="text" id="recNote" />
+              <div id="add_recNote">
+                <label>Note:</label>
+                <input type="text" id="recNote" />
+              </div>
             </div>
 
             <div className="buttons">
