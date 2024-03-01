@@ -8,7 +8,7 @@ import "../home-components/styles/prlist.css";
 function prList({ userId }) {
   const [personalRecords, setPersonalRecords] = useState([]);
   const [records, setRecords] = useState([]);
-
+  const [refresh, setRefresh] = useState(false);
 
   const [showAddDialog, setShowAddDialog] = useState(false);
 
@@ -49,7 +49,11 @@ function prList({ userId }) {
     };
 
     fetchRecords();
-  }, [userId, personalRecords]);
+  }, [userId, personalRecords, refresh]);
+
+  const handleRefresh = () => {
+    setRefresh((prevRefresh) => !prevRefresh); // Toggle refresh state
+  };
 
   console.log(records);
 
@@ -65,7 +69,7 @@ function prList({ userId }) {
       ))}
       <button className="addCategory" onClick={openAddDialog}>Add New Personal Record Category</button>
 
-      {showAddDialog && <AddPr userId={userId} onClose={closeAddDialog} />}
+      {showAddDialog && <AddPr userId={userId} onClose={closeAddDialog} onRefresh={handleRefresh}/>}
     </div>
   );
 }

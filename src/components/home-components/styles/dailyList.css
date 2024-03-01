@@ -1,0 +1,29 @@
+.dailyList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 550px; 
+    height: 450px;
+    background-color: #B1A7A6;
+    border-radius: 15px;
+    border: 2px solid gray; 
+}
+
+#dailyListTitle{
+    color: #161A1D;
+}
+
+.charts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 300px;
+}
+
+#daily_goal_box{
+    border: 1px solid black; 
+    height: 120px;
+}

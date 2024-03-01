@@ -8,4 +8,4 @@ function record({record, title}){
     </div>
 }
 
-export default record
+export default record;

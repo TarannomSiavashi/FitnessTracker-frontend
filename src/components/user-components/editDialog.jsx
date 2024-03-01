@@ -48,12 +48,12 @@ export default function EditDialog({ user , onClose}) {
             </div>
             <div id="editInfo">
               <h5>Weight</h5>
-              <input type="text" id="weight" defaultValue={user.weight} />
+              <input type="number" id="weight" defaultValue={user.weight} />
             </div>
 
             <div id="editInfo">
               <h5>Height</h5>
-              <input type="text" id="height" defaultValue={user.height} />
+              <input type="number" id="height" defaultValue={user.height} />
             </div>
 
             <div id="editInfo">

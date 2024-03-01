@@ -3,11 +3,13 @@ import "../user-components/editDialog.css";
 import { post } from "../../utils/httpClient";
 import "./styles/addPr.css";
 
-export default function AddPr({ userId, prId }) {
+export default function AddPr({ userId,onClose, onRefresh }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(false);
+    onClose();
+    onRefresh();
   };
 
 

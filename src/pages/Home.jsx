@@ -3,14 +3,15 @@ import { Link, useParams } from "react-router-dom";
 import "./page-styles/Home.css";
 import ToolBar from "../components/home-components/bar";
 import PrList from "../components/home-components/prList";
-import { get } from "../utils/httpClient";
+import DailyList from "../components/home-components/dailyList";
 
+import { get } from "../utils/httpClient";
 
 function Home() {
   const { userId } = useParams();
-  console.log(userId);
+  console.log("Home", userId);
   const [user, setRecords] = useState([]);
-  
+
   useEffect(() => {
     const fetchRecords = async () => {
       try {
@@ -28,8 +29,11 @@ function Home() {
 
   return (
     <div className="homePage">
-      <ToolBar userId = {userId}/>
-      <PrList userId={userId}/>
+      <ToolBar userId={userId} />
+      <div className="Lists">
+        <PrList userId={userId} />
+        <DailyList userId={userId}/>
+      </div>
     </div>
   );
 }

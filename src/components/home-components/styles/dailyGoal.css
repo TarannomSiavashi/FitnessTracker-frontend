@@ -1,0 +1,15 @@
+.daily_Container{
+    display: flex;
+    justify-content: space-around;
+    width: 170px;
+    height: 40px;
+}
+
+#text{
+    color: black;
+}
+
+#chartContainer{
+    height: 100px;
+    width: 100px;
+}

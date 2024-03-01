@@ -1,0 +1,40 @@
+#root{
+    background-color: #D3D3D3;
+}
+.dailyContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+}
+
+#dailyTitle{
+    color: #161A1D;
+}
+
+h4{
+    color: #0B090A;
+}
+
+h5{
+    color: #161A1D;
+    padding-left: 10px;
+}
+
+#day_info{
+    display: flex;
+    justify-content: flex-start;
+    width: 300px;
+}
+
+.titleButton{
+    display: flex;
+    flex-direction: column;
+}
+
+#updateButton{
+    width: 100px;
+    background-color: #660708;
+    color: #D3D3D3;
+}

@@ -17,6 +17,8 @@ function PersonalRecordPage() {
     setShowAddDialog(false);
   };
 
+  console.log("PRID:", prId);
+
   return (
     <div className="recordContainer">
       <h1>{title}</h1>
