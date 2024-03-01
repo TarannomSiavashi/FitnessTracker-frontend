@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { get } from "../../utils/httpClient";
 import Record from "../home-components/record";
 import { Link } from "react-router-dom";
-import AddPr from '../home-components/addPr'
+import AddPr from "../home-components/addPr";
 import "../home-components/styles/prlist.css";
 
 function prList({ userId }) {
@@ -18,8 +18,8 @@ function prList({ userId }) {
 
   const closeAddDialog = () => {
     setShowAddDialog(false);
+    setRefresh(true);
   };
-
 
   useEffect(() => {
     const fetchPersonalRecords = async () => {
@@ -33,6 +33,7 @@ function prList({ userId }) {
 
     fetchPersonalRecords();
   }, [userId]);
+
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -51,25 +52,49 @@ function prList({ userId }) {
     fetchRecords();
   }, [userId, personalRecords, refresh]);
 
-  const handleRefresh = () => {
-    setRefresh((prevRefresh) => !prevRefresh); // Toggle refresh state
+  const refreshList = async () => {
+    try {
+      const recordPromises = personalRecords.map((pr) =>
+        get(`/record/${userId}/${pr.prid}`)
+      );
+      const fetchedRecords = await Promise.all(recordPromises);
+      const flattenedRecords = fetchedRecords.flat();
+      setRecords(flattenedRecords);
+    } catch (error) {
+      console.error("Error fetching records:", error);
+    }
   };
 
-  console.log(records);
+  useEffect(() => {
+    if (refresh) {
+      refreshList();
+      setRefresh(false);
+    }
+  }, [refresh]);
+
+  const handleRefresh = () => {
+    setRefresh((prevRefresh) => !prevRefresh);
+  };
+
+  // console.log(records);
 
   return (
     <div className="prList">
       <h3 id="listTitle">Latest Update on Personal Records</h3>
       {records.map((record, index) => (
         <div key={index}>
-          <Link to={`/Records/${personalRecords[index].title}/${userId}/${record.prid}`}>
+          <Link
+            to={`/Records/${personalRecords[index].title}/${userId}/${record.prid}`}
+          >
             <Record record={record} title={personalRecords[index].title} />
           </Link>
         </div>
       ))}
-      <button className="addCategory" onClick={openAddDialog}>Add New Personal Record Category</button>
+      <button className="addCategory" onClick={openAddDialog}>
+        Add New Personal Record Category
+      </button>
 
-      {showAddDialog && <AddPr userId={userId} onClose={closeAddDialog} onRefresh={handleRefresh}/>}
+      {showAddDialog && <AddPr userId={userId} onClose={closeAddDialog} />}
     </div>
   );
 }

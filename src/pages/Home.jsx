@@ -4,12 +4,11 @@ import "./page-styles/Home.css";
 import ToolBar from "../components/home-components/bar";
 import PrList from "../components/home-components/prList";
 import DailyList from "../components/home-components/dailyList";
-
 import { get } from "../utils/httpClient";
+import io from "socket.io-client";
 
 function Home() {
   const { userId } = useParams();
-  console.log("Home", userId);
   const [user, setRecords] = useState([]);
 
   useEffect(() => {
@@ -24,8 +23,21 @@ function Home() {
     fetchRecords();
   }, [userId]);
 
-  console.log("USERUSER");
-  console.log(user);
+  useEffect(() => {
+    console.log("in socket call");
+    const socket = io(); // Create a new instance of Socket.IO
+
+    // Listen for notifications from the server
+    socket.on('notification', (message) => {
+      const notificationDiv = document.getElementById('notification');
+      notificationDiv.innerHTML = `<p>${message}</p>`;
+    });
+
+    // Clean up the socket connection when the component unmounts
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   return (
     <div className="homePage">
@@ -34,6 +46,7 @@ function Home() {
         <PrList userId={userId} />
         <DailyList userId={userId}/>
       </div>
+      <div id="notification"></div>
     </div>
   );
 }

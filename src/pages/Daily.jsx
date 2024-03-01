@@ -7,7 +7,6 @@ import "./page-styles/Daily.css";
 
 function Daily() {
   const { userId, dailyId } = useParams();
-  console.log("day ID in daily:", dailyId);
 
   const [goal, setGoal] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,7 +19,6 @@ function Daily() {
 
   const closeUpdateDialog = () => {
     setShowUpdateDialog(false);
-    // loadUser();
   };
 
   useEffect(() => {
@@ -36,7 +34,6 @@ function Daily() {
     fetchGoal();
   }, [userId, dailyId]);
 
-  console.log("Goal in Daily:", goal);
 
   if (loading) {
     return <div>Loading...</div>;

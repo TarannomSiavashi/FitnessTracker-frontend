@@ -54,6 +54,23 @@ export async function post(path, body) {
 };
 
 
+// export async function put(path, body) {
+//   var myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
+//   var raw = JSON.stringify(body);
+
+//   var requestOptions = {
+//     method: "PUT",
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: "follow",
+//   };
+
+//   fetch(`${BASE_URL}${path}`, requestOptions)
+//     .then((response) => response.json())
+//     .catch((error) => console.log("error", error));
+// }
+
 export async function put(path, body) {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -66,10 +83,18 @@ export async function put(path, body) {
     redirect: "follow",
   };
 
-  fetch(`${BASE_URL}${path}`, requestOptions)
-    .then((response) => response.json())
-    .catch((error) => console.log("error", error));
+  try {
+    const response = await fetch(`${BASE_URL}${path}`, requestOptions);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error:", error);
+    throw error; // Re-throw the error for the caller to handle
+  }
 }
+
 
 export async function get(path) {
     var myHeaders = new Headers();

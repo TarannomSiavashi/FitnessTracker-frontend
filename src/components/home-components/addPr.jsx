@@ -3,13 +3,12 @@ import "../user-components/editDialog.css";
 import { post } from "../../utils/httpClient";
 import "./styles/addPr.css";
 
-export default function AddPr({ userId,onClose, onRefresh }) {
+export default function AddPr({ userId, onClose }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    setIsOpen(false);
+    // setIsOpen(false);
     onClose();
-    onRefresh();
   };
 
 
@@ -27,10 +26,7 @@ export default function AddPr({ userId,onClose, onRefresh }) {
 
     try {
       const response = await post(`/newCategory`, newCategory);
-      // console.log("Category added:", response);
       newCat = response;
-      // console.log("New Cat:", newCat);
-      //   handleClose();
     } catch (error) {
       console.error("Error adding category:", error);
       // Handle error appropriately
@@ -47,14 +43,14 @@ export default function AddPr({ userId,onClose, onRefresh }) {
         note: note
     }
 
-    // console.log("newRec:", newRec);
     try {
         const response = await post(`/newRecord`, newRec);
-        // console.log("Record added:", response);
-        handleClose();
+        if(response){
+          console.log("put complete");
+          handleClose();
+        }
       } catch (error) {
         console.error("Error adding record:", error);
-        // Handle error appropriately
       }
   };
 

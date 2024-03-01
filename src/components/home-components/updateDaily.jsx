@@ -3,10 +3,8 @@ import '../home-components/styles/updateDaily.css';
 import { put } from '../../utils/httpClient';
 
 export default function updateDaily({ userId, goal , onClose}) {
-  const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    // setIsOpen(false);
     onClose();
   };
 
@@ -20,7 +18,6 @@ export default function updateDaily({ userId, goal , onClose}) {
       handleClose();
     } catch (error) {
       console.error("Error updating daily goal:", error);
-      // Handle error appropriately
     }
   };
 

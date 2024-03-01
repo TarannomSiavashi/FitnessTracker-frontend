@@ -6,7 +6,6 @@ export default function addRecord({ prid, onClose }) {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
-    setIsOpen(false);
     onClose();
   };
 
@@ -15,19 +14,18 @@ export default function addRecord({ prid, onClose }) {
     const metric = document.getElementById("recordMetric").value;
     const note = document.getElementById("recordNote").value;
 
-    console.log("Date:")
-    console.log(date);
     const newRecord = {
       prid: prid,
       prdate: date,
       metric: metric,
       note: note,
     };
-    console.log(newRecord)
     try {
       const response = await post(`/newRecord`, newRecord);
       console.log("new record:", response);
-      handleClose();
+      if(response){
+        handleClose();
+      }
     } catch (error) {
       console.error("Error updating user:", error);
     }

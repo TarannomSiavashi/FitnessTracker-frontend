@@ -7,8 +7,7 @@ function dailyGoal({goal}){
         <div id="chartContainer">
         <DoughnutChart goal={goal} />
         </div>
-        {/* <div id="text">{record.metric} {record.unit}</div>
-        <div id="text">{record.prdate}</div> */}
+
     </div>
 }
 

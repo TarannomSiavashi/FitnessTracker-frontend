@@ -7,7 +7,6 @@ import "../home-components/styles/dailyList.css";
 
 function dailyList({ userId }) {
   const [dailyGoals, setdailyGoals] = useState([]);
-  // const [records, setRecords] = useState([]);
 
   useEffect(() => {
     const fetchGoals = async () => {
@@ -21,10 +20,6 @@ function dailyList({ userId }) {
 
     fetchGoals();
   }, [userId]);
-
-
-  console.log("Goals in list:", dailyGoals);
-
 
   return (
     <div className="dailyList">

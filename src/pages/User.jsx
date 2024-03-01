@@ -8,14 +8,15 @@ import { get } from '../utils/httpClient'
 export default function User() {
   const { userId } = useParams();
   const [user, setUser] = useState([]);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [reloadUser, setReloadUser] = useState(false);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const fetcheduser = await get(`/user/${userId}`);
-        console.log("fetched usr:", fetcheduser[0]);
         const userObj = fetcheduser[0];
         setUser(userObj);
-        console.log("user usr:", user);
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -26,18 +27,20 @@ export default function User() {
   const loadUser = async () => {
     try {
       const fetcheduser = await get(`/user/${userId}`);
-      console.log("fetched usr:", fetcheduser[0]);
       const userObj = fetcheduser[0];
       setUser(userObj);
-      console.log("user usr:", user);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
   };
 
+  useEffect(() => {
+    if (reloadUser) {
+      loadUser();
+      setReloadUser(false); // Reset the reload flag
+    }
+  }, [reloadUser]);
 
-
-  const [showEditDialog, setShowEditDialog] = useState(false);
 
   const openEditDialog = () => {
     setShowEditDialog(true);
@@ -45,8 +48,9 @@ export default function User() {
 
   const closeEditDialog = () => {
     setShowEditDialog(false);
-    loadUser();
+    setReloadUser(true);
   };
+
 
 
   return (
@@ -56,21 +60,21 @@ export default function User() {
 
 
         <div id="info">
-          <h5>Name</h5>
+          <h5 id='h5_info'>Name</h5>
           <label>{user.name}</label>
         </div>
         <div id="info">
-            <h5>Weight</h5>
+            <h5 id='h5_info'>Weight</h5>
             <label>{user.weight} kg</label>
         </div>
 
         <div id="info">
-            <h5>Height</h5>
+            <h5 id='h5_info'>Height</h5>
             <label>{user.height} cm</label>
         </div>
 
         <div id="info">
-            <h5>Date of Birth</h5>
+            <h5 id='h5_info'>Date of Birth</h5>
             <label>{user.birthdate}</label>
         </div>
 
@@ -80,7 +84,7 @@ export default function User() {
         </div>
 
       </div>
-      {showEditDialog && <EditDialog user={user} onClose={closeEditDialog} />}
+      {showEditDialog && <EditDialog user={user} onClose={closeEditDialog}/>}
     </div>
   );
 }
