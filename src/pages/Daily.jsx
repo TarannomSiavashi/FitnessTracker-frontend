@@ -2,7 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { get } from "../utils/httpClient";
 import DoughnutChart from "../components/charts/DoughnutChart";
-import UpdateDaily from '../components/home-components/updateDaily'
+import UpdateDaily from "../components/home-components/updateDaily";
+import ErrorPopup from "../components/error-components/ErrorMessage";
 import "./page-styles/Daily.css";
 
 function Daily() {
@@ -11,7 +12,11 @@ function Daily() {
   const [goal, setGoal] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showUpdateDialog, setShowUpdateDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   const openUpdateDialog = () => {
     setShowUpdateDialog(true);
@@ -28,12 +33,11 @@ function Daily() {
         setGoal(fetchedGoal[0]);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching goal:", error);
+        setErrorMessage("Error fetching goal.");
       }
     };
     fetchGoal();
   }, [userId, dailyId]);
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -41,9 +45,14 @@ function Daily() {
 
   return (
     <div className="dailyContainer">
+      {errorMessage && (
+        <ErrorPopup message={errorMessage} onClose={handleCloseErrorPopup} />
+      )}
       <div className="titleButton">
         <h1 id="dailyTitle">{goal.title}</h1>
-        <button id="updateButton" onClick={openUpdateDialog}>Update</button>
+        <button id="updateButton" onClick={openUpdateDialog}>
+          Update
+        </button>
       </div>
       <DoughnutChart goal={goal} />
 
@@ -67,8 +76,9 @@ function Daily() {
           <h5>{goal.status}</h5>
         </div>
       </div>
-      {showUpdateDialog && <UpdateDaily userId={userId} goal={goal} onClose={closeUpdateDialog} />}
-
+      {showUpdateDialog && (
+        <UpdateDaily userId={userId} goal={goal} onClose={closeUpdateDialog} />
+      )}
     </div>
   );
 }

@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
 import { get } from "../../utils/httpClient";
 import DailyGoal from "../home-components/dailyGoal";
+import ErrorPopup from "../error-components/ErrorMessage";
 import { Link } from "react-router-dom";
 
 import "../home-components/styles/dailyList.css";
 
 function dailyList({ userId }) {
   const [dailyGoals, setdailyGoals] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   useEffect(() => {
     const fetchGoals = async () => {
@@ -14,7 +20,7 @@ function dailyList({ userId }) {
         const data = await get(`/dailys/${userId}`);
         setdailyGoals(data);
       } catch (error) {
-        console.error("Error fetching daily goals:", error);
+        setErrorMessage("Error in Getting Daily Goals.");
       }
     };
 
@@ -23,6 +29,9 @@ function dailyList({ userId }) {
 
   return (
     <div className="dailyList">
+      {errorMessage && (
+        <ErrorPopup message={errorMessage} onClose={handleCloseErrorPopup} />
+      )}
       <h3 id="dailyListTitle">Daily Goals</h3>
       <div className="charts">
         {dailyGoals.map((goal, index) => (

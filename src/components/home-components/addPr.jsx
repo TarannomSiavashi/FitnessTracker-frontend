@@ -1,16 +1,19 @@
 import React, { useState } from "react";
+import ErrorPopup from "../error-components/ErrorMessage";
 import "../user-components/editDialog.css";
 import { post } from "../../utils/httpClient";
 import "./styles/addPr.css";
 
 export default function AddPr({ userId, onClose }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const handleClose = () => {
-    // setIsOpen(false);
-    onClose();
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
   };
 
+  const handleClose = () => {
+    onClose();
+  };
 
   let newCat;
 
@@ -28,8 +31,7 @@ export default function AddPr({ userId, onClose }) {
       const response = await post(`/newCategory`, newCategory);
       newCat = response;
     } catch (error) {
-      console.error("Error adding category:", error);
-      // Handle error appropriately
+      setErrorMessage("Error in Creating New Category.");
     }
 
     const date = document.getElementById("recDate").value;
@@ -37,27 +39,32 @@ export default function AddPr({ userId, onClose }) {
     const note = document.getElementById("recNote").value;
 
     const newRec = {
-        prid: newCat.prid,
-        prdate: date,
-        metric: metric,
-        note: note
-    }
+      prid: newCat.prid,
+      prdate: date,
+      metric: metric,
+      note: note,
+    };
 
     try {
-        const response = await post(`/newRecord`, newRec);
-        if(response){
-          console.log("put complete");
-          handleClose();
-        }
-      } catch (error) {
-        console.error("Error adding record:", error);
+      const response = await post(`/newRecord`, newRec);
+      if (response) {
+        handleClose();
       }
+    } catch (error) {
+      setErrorMessage("Error in Creating New Record.");
+    }
   };
 
   return (
     <>
       {isOpen && (
         <div>
+          {errorMessage && (
+            <ErrorPopup
+              message={errorMessage}
+              onClose={handleCloseErrorPopup}
+            />
+          )}
           <dialog id="addPr" open>
             <h3 id="header3">Add New Personal Record Category</h3>
 

@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import ErrorPopup from "../error-components/ErrorMessage";
 import "../user-components/editDialog.css";
 import { put } from "../../utils/httpClient";
 
 export default function EditDialog({ user, onClose }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   const handleClose = () => {
     onClose();
@@ -31,7 +36,7 @@ export default function EditDialog({ user, onClose }) {
         console.error("PUT request failed or response status is not 200");
       }
     } catch (error) {
-      console.error("Error updating user:", error);
+      setErrorMessage("Error updating user.");
     }
   };
 
@@ -39,6 +44,12 @@ export default function EditDialog({ user, onClose }) {
     <>
       {isOpen && (
         <div>
+          {errorMessage && (
+            <ErrorPopup
+              message={errorMessage}
+              onClose={handleCloseErrorPopup}
+            />
+          )}
           <dialog id="editDialog" open>
             <h3>User Information</h3>
 

@@ -3,14 +3,19 @@ import { get } from "../../utils/httpClient";
 import Record from "../home-components/record";
 import { Link } from "react-router-dom";
 import AddPr from "../home-components/addPr";
+import ErrorPopup from "../error-components/ErrorMessage";
 import "../home-components/styles/prlist.css";
 
 function prList({ userId }) {
   const [personalRecords, setPersonalRecords] = useState([]);
   const [records, setRecords] = useState([]);
   const [refresh, setRefresh] = useState(false);
-
   const [showAddDialog, setShowAddDialog] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   const openAddDialog = () => {
     setShowAddDialog(true);
@@ -27,13 +32,12 @@ function prList({ userId }) {
         const data = await get(`/pr/${userId}`);
         setPersonalRecords(data);
       } catch (error) {
-        console.error("Error fetching personal records:", error);
+        setErrorMessage("Error in Fetching Personal Records.");
       }
     };
 
     fetchPersonalRecords();
   }, [userId]);
-
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -45,7 +49,7 @@ function prList({ userId }) {
         const flattenedRecords = fetchedRecords.flat();
         setRecords(flattenedRecords);
       } catch (error) {
-        console.error("Error fetching records:", error);
+        setErrorMessage("Error in Fetching Records.");
       }
     };
 
@@ -61,7 +65,7 @@ function prList({ userId }) {
       const flattenedRecords = fetchedRecords.flat();
       setRecords(flattenedRecords);
     } catch (error) {
-      console.error("Error fetching records:", error);
+      setErrorMessage("Error in Fetching Records.");
     }
   };
 
@@ -80,6 +84,9 @@ function prList({ userId }) {
 
   return (
     <div className="prList">
+      {errorMessage && (
+        <ErrorPopup message={errorMessage} onClose={handleCloseErrorPopup} />
+      )}
       <h3 id="listTitle">Latest Update on Personal Records</h3>
       {records.map((record, index) => (
         <div key={index}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./page-styles/Home.css";
+import ErrorPopup from "../components/error-components/ErrorMessage";
 import ToolBar from "../components/home-components/bar";
 import PrList from "../components/home-components/prList";
 import DailyList from "../components/home-components/dailyList";
@@ -10,6 +11,11 @@ import io from "socket.io-client";
 function Home() {
   const { userId } = useParams();
   const [user, setRecords] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -17,7 +23,8 @@ function Home() {
         const fetchedRecords = await get(`/user/${userId}`);
         setRecords(fetchedRecords);
       } catch (error) {
-        console.error("Error fetching user:", error);
+        // console.error("Error fetching user:", error);
+        setErrorMessage(error.message);
       }
     };
     fetchRecords();
@@ -28,8 +35,8 @@ function Home() {
     const socket = io(); // Create a new instance of Socket.IO
 
     // Listen for notifications from the server
-    socket.on('notification', (message) => {
-      const notificationDiv = document.getElementById('notification');
+    socket.on("notification", (message) => {
+      const notificationDiv = document.getElementById("notification");
       notificationDiv.innerHTML = `<p>${message}</p>`;
     });
 
@@ -41,10 +48,13 @@ function Home() {
 
   return (
     <div className="homePage">
+      {errorMessage && (
+        <ErrorPopup message={errorMessage} onClose={handleCloseErrorPopup} />
+      )}
       <ToolBar userId={userId} />
       <div className="Lists">
         <PrList userId={userId} />
-        <DailyList userId={userId}/>
+        <DailyList userId={userId} />
       </div>
       <div id="notification"></div>
     </div>

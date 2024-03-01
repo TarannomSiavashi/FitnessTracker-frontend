@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import ErrorPopup from "../error-components/ErrorMessage";
 import { post } from "../../utils/httpClient";
 import "../home-components/styles/addRecord.css";
 
 export default function addRecord({ prid, onClose }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleCloseErrorPopup = () => {
+    setErrorMessage("");
+  };
 
   const handleClose = () => {
     onClose();
@@ -22,33 +27,35 @@ export default function addRecord({ prid, onClose }) {
     };
     try {
       const response = await post(`/newRecord`, newRecord);
-      console.log("new record:", response);
-      if(response){
+      if (response) {
         handleClose();
       }
     } catch (error) {
-      console.error("Error updating user:", error);
+      setErrorMessage("Error in Creating new Record");
     }
   };
 
   return (
     <>
+      {errorMessage && (
+        <ErrorPopup message={errorMessage} onClose={handleCloseErrorPopup} />
+      )}
       {isOpen && (
         <div className="addContainer">
-            <div className="newRecPart">
-                <label>Record Date:</label>
+          <div className="newRecPart">
+            <label>Record Date:</label>
             <input type="date" id="recordDate" />
-            </div>
+          </div>
 
-            <div className="newRecPart">
+          <div className="newRecPart">
             <label>Record Metric (kg):</label>
             <input type="number" id="recordMetric" />
-            </div>
+          </div>
 
-            <div className="newRecPart">
+          <div className="newRecPart">
             <label>Note:</label>
             <input type="text" id="recordNote" />
-            </div>
+          </div>
 
           <div className="recordAddButton">
             <button id="add_record" onClick={add}>
@@ -63,4 +70,3 @@ export default function addRecord({ prid, onClose }) {
     </>
   );
 }
-
