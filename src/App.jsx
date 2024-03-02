@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import LoginPage from './pages/Login';
 
+const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
 function App() {
   // const [count, setCount] = useState(0)
   const styles= {

@@ -5,6 +5,7 @@ import "../home-components/styles/addRecord.css";
 
 export default function addRecord({ prid, onClose }) {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleCloseErrorPopup = () => {
     setErrorMessage("");

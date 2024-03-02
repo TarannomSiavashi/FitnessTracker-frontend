@@ -1,0 +1,56 @@
+.addDayInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#d_content{
+    color: #161A1D;
+}
+
+#D_title{
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+#D_desc{
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+#D_metric{
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+#D_alarm{
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+}
+
+.D_button{
+    height: 40px;
+    width: 100px;
+    background-color: #a4161a;
+    color: #B1A7A6;
+}
+
+#day_Info{
+    display: flex;
+    width: 220px;
+    justify-content: space-between;
+}
+
+#dh4{
+    height: 20px;
+}
+
+.Dbuttons{
+    width: 240px;
+    display: flex;
+    justify-content: space-between;
+}

@@ -50,9 +50,14 @@ function Daily() {
       )}
       <div className="titleButton">
         <h1 id="dailyTitle">{goal.title}</h1>
+        <div className="update_buttons">
         <button id="updateButton" onClick={openUpdateDialog}>
           Update
         </button>
+        <Link to={`/Home/${userId}`}>
+            <button id="updateButton">Back</button>
+          </Link>
+        </div>
       </div>
       <DoughnutChart goal={goal} />
 

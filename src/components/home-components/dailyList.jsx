@@ -42,6 +42,8 @@ function dailyList({ userId }) {
           </Link>
         ))}
       </div>
+      <Link to={`/newDaily/${userId}`}><button className="dayButton">Add New Daily Goal</button>
+      </Link>
     </div>
   );
 }

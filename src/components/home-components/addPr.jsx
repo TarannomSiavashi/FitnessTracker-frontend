@@ -6,6 +6,8 @@ import "./styles/addPr.css";
 
 export default function AddPr({ userId, onClose }) {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
+
 
   const handleCloseErrorPopup = () => {
     setErrorMessage("");

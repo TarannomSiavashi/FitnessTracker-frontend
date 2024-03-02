@@ -5,6 +5,7 @@ import { put } from "../../utils/httpClient";
 
 export default function EditDialog({ user, onClose }) {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleCloseErrorPopup = () => {
     setErrorMessage("");

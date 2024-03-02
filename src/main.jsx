@@ -5,7 +5,10 @@ import Login from './pages/Login.jsx'
 import User from './pages/User.jsx'
 import PersonalRecord from './pages/PersonalRecord.jsx'
 import Daily from './pages/Daily.jsx'
-// import App from './App.jsx'
+import Monthly from './pages/MonthlyGoals.jsx'
+import MonthlyGoal from './components/monthlyGoal-components/MonthlyGoal.jsx'
+import NewMonthly from './pages/AddMonthly.jsx'
+import NewDaily from './components/home-components/addDailyGoal.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -33,6 +36,22 @@ const router = createBrowserRouter([
   {
     path: "/DailyGoal/:userId/:dailyId",
     element: <Daily/>,
+  },
+  {
+    path: "/MonthlyGoal/:userId",
+    element: <Monthly/>,
+  },
+  {
+    path: "/MonthlyGoal/:userId/:monthId",
+    element: <MonthlyGoal/>,
+  },
+  {
+    path: "/newMonthly/:userId",
+    element: <NewMonthly/>,
+  },
+  {
+    path: "/newDaily/:userId",
+    element: <NewDaily/>,
   },
 ]);
 

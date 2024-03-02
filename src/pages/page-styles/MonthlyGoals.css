@@ -1,0 +1,45 @@
+.MonthlyPage{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.all_M_goals{
+    /* padding-top: 50px; */
+    height: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.M_title{
+    color: #161A1D;
+}
+
+.MG_title{
+    color: #F5F3F4;
+}
+
+.newM_back{
+    height: 50px;
+    width: 100px;
+    background-color: #a4161a;
+    color: #B1A7A6;
+}
+
+.newM_add{
+    height: 50px;
+    width: 250px;
+    background-color: #a4161a;
+    color: #B1A7A6;
+}
+
+.newM_buttons{
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}

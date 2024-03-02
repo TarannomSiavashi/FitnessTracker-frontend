@@ -1,6 +1,13 @@
 #root{
     background-color: #D3D3D3;
 }
+
+.monthly_component{
+    display: flex;
+    justify-content: space-around;
+    width: 70%;
+}
+
 .dailyContainer{
     display: flex;
     align-items: center;
@@ -9,7 +16,7 @@
     width: 100%;
 }
 
-#dailyTitle{
+#monthlyTitle{
     color: #161A1D;
 }
 
@@ -22,24 +29,24 @@ h5{
     padding-left: 10px;
 }
 
-#day_info{
+#month_info{
     display: flex;
     justify-content: flex-start;
     width: 300px;
 }
 
-.titleButton{
+.M_titleButton{
     display: flex;
     flex-direction: column;
 }
 
-#updateButton{
+#doneButton{
     width: 100px;
     background-color: #660708;
     color: #D3D3D3;
 }
 
-.update_buttons{
+.M_buttonsDone{
     width: 240px;
     display: flex;
     justify-content: space-between;

@@ -6,7 +6,7 @@ import ToolBar from "../components/home-components/bar";
 import PrList from "../components/home-components/prList";
 import DailyList from "../components/home-components/dailyList";
 import { get } from "../utils/httpClient";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 function Home() {
   const { userId } = useParams();
@@ -23,28 +23,27 @@ function Home() {
         const fetchedRecords = await get(`/user/${userId}`);
         setRecords(fetchedRecords);
       } catch (error) {
-        // console.error("Error fetching user:", error);
         setErrorMessage(error.message);
       }
     };
     fetchRecords();
   }, [userId]);
 
-  useEffect(() => {
-    console.log("in socket call");
-    const socket = io(); // Create a new instance of Socket.IO
+  // useEffect(() => {
+  //   console.log("in socket call");
+  //   const socket = io(); // Create a new instance of Socket.IO
 
-    // Listen for notifications from the server
-    socket.on("notification", (message) => {
-      const notificationDiv = document.getElementById("notification");
-      notificationDiv.innerHTML = `<p>${message}</p>`;
-    });
+  //   // Listen for notifications from the server
+  //   socket.on("notification", (message) => {
+  //     const notificationDiv = document.getElementById("notification");
+  //     notificationDiv.innerHTML = `<p>${message}</p>`;
+  //   });
 
-    // Clean up the socket connection when the component unmounts
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  //   // Clean up the socket connection when the component unmounts
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   return (
     <div className="homePage">
@@ -54,7 +53,12 @@ function Home() {
       <ToolBar userId={userId} />
       <div className="Lists">
         <PrList userId={userId} />
-        <DailyList userId={userId} />
+        <div className="Goals">
+          <DailyList userId={userId} />
+          <Link to={`/MonthlyGoal/${userId}`}>
+          <div className="monthly_goals"><h3 id="monthText">Monthly Goals</h3></div>
+          </Link>
+        </div>
       </div>
       <div id="notification"></div>
     </div>

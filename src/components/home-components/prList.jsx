@@ -80,8 +80,6 @@ function prList({ userId }) {
     setRefresh((prevRefresh) => !prevRefresh);
   };
 
-  // console.log(records);
-
   return (
     <div className="prList">
       {errorMessage && (

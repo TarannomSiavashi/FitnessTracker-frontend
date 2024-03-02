@@ -1,4 +1,3 @@
-import './DoughnutChart.css'
 import {
     Chart as ChartJS,
     ArcElement,
